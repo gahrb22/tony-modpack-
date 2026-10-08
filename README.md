@@ -6,8 +6,8 @@
 
 للتأكد من أن ملف الـ ZIP المرفوع على الديسكورد آمن تماماً ولم يتم التعديل عليه أو إضافة أي ملفات خبيثة، يرجى مطابقة البصمة الرقمية التالية:
 
-* **File Name:** `tone modpack (1).zip`
-* **SHA-256 Checksum:** `CB5B520359E7A1AB9CA4A94DE1DB404667F4E34A559F5562D695A53777B068E9`
+* **File Name:** `Tony-Modpack-Manual.Installation-1.21.11.zip`
+* **SHA-256 Checksum:** `cb5b520359e7a1ab9ca4a94de1db404667f4e34a559f5562d695a53777b068e9`
 
 ##  كيف تتأكد بنفسك؟ (Windows PowerShell)
 افتح الـ PowerShell واكتب الأمر التالي للتأكد من تطابق الكود:
