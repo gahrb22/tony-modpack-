@@ -1,0 +1,62 @@
+
+name: Release Security Verification
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+jobs:
+  verify-release:
+    name: Verify and Attest Release Assets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          mkdir -p dist
+          gh release download "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir dist
+
+          if [ -z "$(find dist -type f -print -quit)" ]; then
+            echo "No release assets found."
+            exit 1
+          fi
+
+      - name: Install ClamAV
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clamav clamav-freshclam
+
+      - name: Update virus definitions
+        run: |
+          sudo freshclam
+
+      - name: Scan release files for malware
+        run: |
+          clamscan --recursive --infected --verbose dist
+
+      - name: Generate SHA-256 checksums
+        run: |
+          cd dist
+          find . -type f ! -name SHA256SUMS -print0 \
+            | sort -z \
+            | xargs -0 sha256sum > SHA256SUMS
+
+      - name: Verify generated checksums
+        run: |
+          cd dist
+          sha256sum -c SHA256SUMS
+
+      - name: Generate artifact attestations
+        uses: actions/attest@v4
+        with:
+          subject-path: 'dist/*'
