@@ -1,0 +1,8 @@
+version:4671
+joinedFirstServer:true
+onboardAccessibility:true
+resourcePacks:["vanilla","file/SodiumTranslations.zip","file/Chat Reporting Helper.zip","file/Mod Menu Helper.zip","continuity:glass_pane_culling_fix","continuity:default"]
+incompatibleResourcePacks:[]
+skipMultiplayerWarning:true
+telemetryOptInExtra:false
+tutorialStep:none
